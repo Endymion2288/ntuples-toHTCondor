@@ -1,0 +1,45 @@
+# `ntuples-toHTCondor` 软件包
+
+## 1. 简介
+这个软件包用于批量处理ntuple文件。在实际使用中，我们常需要批量提交一些HTCondor作业来处理数量巨大的ntuple文件。这个软件包提供了一个简单的方法来实现这个目的。
+
+## 2. 使用方法
+### 2.1 预备文件
+在使用这个软件包之前，需要准备以下文件：
+- `datalist.txt`：这个文件包含了所有需要处理的ntuple文件的路径。每一行是一个ntuple文件的路径。例如：
+```
+/path/to/ntuple1.root
+/path/to/ntuple2.root
+...
+```
+- `runReadTree_template.C`：这个文件定义了一个`ROOT` macro，用于对单个文件进行处理。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出。例如：
+```cpp
+void runReadTree() {
+    TChain *chain = new TChain("T");
+    chain->Add("JOB_INPUT_FILE");
+    ...
+}
+```
+- `runReadTree.sh`：这个文件定义了一个shell脚本，用于调用`ROOT` macro。例如：
+```bash
+root -x runReadTree.C
+```
+- `job_template.sub`：这个文件定义了一个HTCondor作业的提交文件。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出，`runReadTree.sh`的路径通过占位符`JOB_SCRIPT`给出。
+
+### 2.2 调用方法
+在准备好以上文件之后，可以通过以下命令来调用这个软件包：
+```bash
+./make_jobs.sh
+```
+这样以来就会生成一系列的HTCondor作业目录，每个目录对应一个ntuple文件。在每个目录中，包含了一个`.sub`文件，用于提交HTCondor作业。
+
+同时，在当前目录下会生成一个列表文件`joblist.txt`，包含了所有生成的HTCondor作业目录的路径。
+
+### 2.3 提交HTCondor作业
+在生成HTCondor作业目录之后，可以通过以下命令来一次性提交所有HTCondor作业：
+```bash
+./run_all.sh
+```
+
+## 3. 开发者
+- 王驰（Eric100911, eric100911@126.com or chi.w@cern.ch）
