@@ -12,7 +12,7 @@
 /path/to/ntuple2.root
 ...
 ```
-- `runReadTree_template.C`：这个文件定义了一个`ROOT` macro，用于对单个文件进行处理。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出。例如：
+- `runReadTree_template.C`：这个文件定义了一个`ROOT` macro，用于驱动macro`ReadTree`。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出。例如：
 ```cpp
 void runReadTree() {
     TChain *chain = new TChain("T");
@@ -20,11 +20,22 @@ void runReadTree() {
     ...
 }
 ```
+- `ReadTree_template.C`, `ReadTree_template.h`：这组文件定义了一个`ROOT` macro`ReadTree`，用于对单个文件进行处理。完成处理之后，得到的文件会被保存在相对应作业目录的`Candidates.root`中。为此，需要在`ReadTree.C`中用`JOB_DIR`明输出文件的路径。例如：
+```cpp
+
+void ReadTree() {
+    ...
+    TFile *f = new TFile("JOB_DIR/Candidates.root", "RECREATE");
+    ...
+}
+```
 - `runReadTree.sh`：这个文件定义了一个shell脚本，用于调用`ROOT` macro。例如：
 ```bash
 root -x runReadTree.C
 ```
-- `job_template.sub`：这个文件定义了一个HTCondor作业的提交文件。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出，`runReadTree.sh`的路径通过占位符`JOB_SCRIPT`给出。
+- `job_template.sub`：这个文件定义了一个HTCondor作业的提交文件。其中，被处理的ntuple文件的路径通过占位符`JOB_INPUT_FILE`给出，`runReadTree.sh`的路径通过占位符`JOB_EXECUTABLE`给出。`
+- `make_jobs.sh`：这个文件定义了一个shell脚本，用于生成HTCondor作业目录。在这个脚本中，需要定义`runReadTree_template.C`的路径、`runReadTree.sh`的路径、`job_template.sub`的路径、`datalist.txt`的路径等信息。
+- `run_all.sh`：这个文件定义了一个shell脚本，用于一次性提交所有HTCondor作业。在这个脚本中，需要定义`joblist.txt`的路径。
 
 ### 2.2 调用方法
 在准备好以上文件之后，可以通过以下命令来调用这个软件包：

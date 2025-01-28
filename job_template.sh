@@ -1,1 +1,1 @@
-root -x runReadTree.C
+root -x JOB_DIR/runReadTree.C
