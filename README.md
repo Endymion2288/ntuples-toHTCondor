@@ -37,7 +37,7 @@ root -x runReadTree.C
 - `make_jobs.sh`：这个文件定义了一个shell脚本，用于生成HTCondor作业目录。在这个脚本中，需要定义`runReadTree_template.C`的路径、`runReadTree.sh`的路径、`job_template.sub`的路径、`datalist.txt`的路径等信息。
 - `run_all.sh`：这个文件定义了一个shell脚本，用于一次性提交所有HTCondor作业。在这个脚本中，需要定义`joblist.txt`的路径。
 
-### 2.2 调用方法
+### 2.2 调用软件包，生成HTCondor作业目录
 在准备好以上文件之后，可以通过以下命令来调用这个软件包：
 ```bash
 ./make_jobs.sh
@@ -50,6 +50,12 @@ root -x runReadTree.C
 在生成HTCondor作业目录之后，可以通过以下命令来一次性提交所有HTCondor作业：
 ```bash
 ./run_all.sh
+```
+
+### 2.4 集合输出文件
+在所有HTCondor作业完成之后，可以通过以下命令来集合所有输出文件：
+```bash
+hadd Candidates.root */Candidates.root
 ```
 
 ## 3. 开发者
