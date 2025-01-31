@@ -85,6 +85,30 @@ void ReadTree::Loop()
     RooDataSet Ups_mass_cut_data("Ups_mass_cut_data", "Ups_mass_cut_data", RooArgList(Ups_mass_cut_var));
     RooDataSet Pri_mass_cut_data("Pri_mass_cut_data", "Pri_mass_cut_data", RooArgList(Pri_mass_cut_var));
 
+    // Store the mass error for each candidate.
+    // Define the RooDataSet for the mass error.
+    #ifdef DRAW_RAW
+    RooRealVar Jpsi1_massErr_var("Jpsi1_massErr", "Jpsi1_massErr", 0.0, 10.0);
+    RooRealVar Jpsi2_massErr_var("Jpsi2_massErr", "Jpsi2_massErr", 0.0, 10.0);
+    RooRealVar Ups_massErr_var("Ups_massErr", "Ups_massErr", 0.0, 10.0);
+    RooRealVar Pri_massErr_var("Pri_massErr", "Pri_massErr", 0.0, 10.0);
+    #endif
+    RooRealVar Jpsi1_massErr_cut_var("Jpsi1_massErr", "Jpsi1_massErr", 0.0, 10.0);
+    RooRealVar Jpsi2_massErr_cut_var("Jpsi2_massErr", "Jpsi2_massErr", 0.0, 10.0);
+    RooRealVar Ups_massErr_cut_var("Ups_massErr", "Ups_massErr", 0.0, 10.0);
+    RooRealVar Pri_massErr_cut_var("Pri_massErr", "Pri_massErr", 0.0, 10.0);
+    // Define the RooDataSet for the mass error.
+    #ifdef DRAW_RAW
+    RooDataSet Jpsi1_massErr_data("Jpsi1_massErr_data", "Jpsi1_massErr_data", RooArgList(Jpsi1_massErr_var));
+    RooDataSet Jpsi2_massErr_data("Jpsi2_massErr_data", "Jpsi2_massErr_data", RooArgList(Jpsi2_massErr_var));
+    RooDataSet Ups_massErr_data("Ups_massErr_data", "Ups_massErr_data", RooArgList(Ups_massErr_var));
+    RooDataSet Pri_massErr_data("Pri_massErr_data", "Pri_massErr_data", RooArgList(Pri_massErr_var));
+    #endif
+    RooDataSet Jpsi1_massErr_cut_data("Jpsi1_massErr_cut_data", "Jpsi1_massErr_cut_data", RooArgList(Jpsi1_massErr_cut_var));
+    RooDataSet Jpsi2_massErr_cut_data("Jpsi2_massErr_cut_data", "Jpsi2_massErr_cut_data", RooArgList(Jpsi2_massErr_cut_var));
+    RooDataSet Ups_massErr_cut_data("Ups_massErr_cut_data", "Ups_massErr_cut_data", RooArgList(Ups_massErr_cut_var));
+    RooDataSet Pri_massErr_cut_data("Pri_massErr_cut_data", "Pri_massErr_cut_data", RooArgList(Pri_massErr_cut_var));
+
 
     Long64_t nbytes = 0, nb = 0;
     for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -322,11 +346,20 @@ void ReadTree::Loop()
             Jpsi2_mass_cut_var.setError(Jpsi_2_massErr->at(CandList_cut[iCand]->GetId()));
             Ups_mass_cut_var.setError(Ups_massErr->at(CandList_cut[iCand]->GetId()));
             Pri_mass_cut_var.setError(Pri_massErr->at(CandList_cut[iCand]->GetId()));
+            Jpsi_1_massErr_var.setVal(Jpsi_1_massErr->at(CandList_cut[iCand]->GetId()));
+            Jpsi_2_massErr_var.setVal(Jpsi_2_massErr->at(CandList_cut[iCand]->GetId()));
+            Ups_massErr_cut_var.setVal(Ups_massErr->at(CandList_cut[iCand]->GetId()));
+            Pri_massErr_var.setVal(Pri_massErr->at(CandList_cut[iCand]->GetId()));
             // Add the data to the dataset.
             Jpsi1_mass_cut_data.add(RooArgSet(Jpsi1_mass_cut_var));
             Jpsi2_mass_cut_data.add(RooArgSet(Jpsi2_mass_cut_var));
             Ups_mass_cut_data.add(RooArgSet(Ups_mass_cut_var));
             Pri_mass_cut_data.add(RooArgSet(Pri_mass_cut_var));
+            Jpsi1_massErr_cut_data.add(RooArgSet(Jpsi_1_massErr_var));
+            Jpsi2_massErr_cut_data.add(RooArgSet(Jpsi_2_massErr_var));
+            Ups_massErr_cut_data.add(RooArgSet(Ups_massErr_cut_var));
+            Pri_massErr_cut_data.add(RooArgSet(Pri_massErr_var));
+
         }
 
         #ifdef DRAW_RAW
@@ -345,11 +378,19 @@ void ReadTree::Loop()
             Jpsi2_mass_var.setError(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
             Ups_mass_var.setError(Ups_massErr->at(CandList_raw[iCand]->GetId()));
             Pri_mass_var.setError(Pri_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi1_massErr_var.setVal(Jpsi_1_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi2_massErr_var.setVal(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
+            Ups_massErr_var.setVal(Ups_massErr->at(CandList_raw[iCand]->GetId()));
+            Pri_massErr_var.setVal(Pri_massErr->at(CandList_raw[iCand]->GetId()));
             // Add the data to the dataset.
             Jpsi1_mass_data.add(RooArgSet(Jpsi1_mass_var));
             Jpsi2_mass_data.add(RooArgSet(Jpsi2_mass_var));
             Ups_mass_data.add(RooArgSet(Ups_mass_var));
             Pri_mass_data.add(RooArgSet(Pri_mass_var));
+            Jpsi1_massErr_data.add(RooArgSet(Jpsi1_massErr_var));
+            Jpsi2_massErr_data.add(RooArgSet(Jpsi2_massErr_var));
+            Ups_massErr_data.add(RooArgSet(Ups_massErr_var));
+            Pri_massErr_data.add(RooArgSet(Pri_massErr_var));
         }
         #endif
 
@@ -410,11 +451,19 @@ void ReadTree::Loop()
             Jpsi2_mass_var.setError(Jpsi_2_massErr->at(cand->GetId()));
             Ups_mass_var.setError(Ups_massErr->at(cand->GetId()));
             Pri_mass_var.setError(Pri_massErr->at(cand->GetId()));
+            Jpsi1_massErr_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi2_massErr_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
+            Ups_massErr_var.setVal(Ups_massErr->at(cand->GetId()));
+            Pri_massErr_var.setVal(Pri_massErr->at(cand->GetId()));
             // Add the data to the dataset.
             Jpsi1_mass_data.add(RooArgSet(Jpsi1_mass_var));
             Jpsi2_mass_data.add(RooArgSet(Jpsi2_mass_var));
             Ups_mass_data.add(RooArgSet(Ups_mass_var));
             Pri_mass_data.add(RooArgSet(Pri_mass_var));
+            Jpsi1_massErr_data.add(RooArgSet(Jpsi1_massErr_var));
+            Jpsi2_massErr_data.add(RooArgSet(Jpsi2_massErr_var));
+            Ups_massErr_data.add(RooArgSet(Ups_massErr_var));
+            Pri_massErr_data.add(RooArgSet(Pri_massErr_var));
         }
         #endif
 
@@ -430,11 +479,19 @@ void ReadTree::Loop()
             Jpsi2_mass_cut_var.setError(Jpsi_2_massErr->at(cand->GetId()));
             Ups_mass_cut_var.setError(Ups_massErr->at(cand->GetId()));
             Pri_mass_cut_var.setError(Pri_massErr->at(cand->GetId()));
+            Jpsi1_massErr_cut_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi2_massErr_cut_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
+            Ups_massErr_cut_var.setVal(Ups_massErr->at(cand->GetId()));
+            Pri_massErr_cut_var.setVal(Pri_massErr->at(cand->GetId()));
             // Add the data to the dataset.
             Jpsi1_mass_cut_data.add(RooArgSet(Jpsi1_mass_cut_var));
             Jpsi2_mass_cut_data.add(RooArgSet(Jpsi2_mass_cut_var));
             Ups_mass_cut_data.add(RooArgSet(Ups_mass_cut_var));
             Pri_mass_cut_data.add(RooArgSet(Pri_mass_cut_var));
+            Jpsi1_massErr_cut_data.add(RooArgSet(Jpsi1_massErr_cut_var));
+            Jpsi2_massErr_cut_data.add(RooArgSet(Jpsi2_massErr_cut_var));
+            Ups_massErr_cut_data.add(RooArgSet(Ups_massErr_cut_var));
+            Pri_massErr_cut_data.add(RooArgSet(Pri_massErr_cut_var));
         }
 
         #endif
@@ -488,11 +545,19 @@ void ReadTree::Loop()
     Jpsi2_mass_data.Write();
     Ups_mass_data.Write();
     Pri_mass_data.Write();
+    Jpsi1_massErr_data.Write();
+    Jpsi2_massErr_data.Write();
+    Ups_massErr_data.Write();
+    Pri_massErr_data.Write();
     #endif
     Jpsi1_mass_cut_data.Write();
     Jpsi2_mass_cut_data.Write();
     Ups_mass_cut_data.Write();
     Pri_mass_cut_data.Write();
+    Jpsi1_massErr_cut_data.Write();
+    Jpsi2_massErr_cut_data.Write();
+    Ups_massErr_cut_data.Write();
+    Pri_massErr_cut_data.Write();
     f->Close();
 }
 
