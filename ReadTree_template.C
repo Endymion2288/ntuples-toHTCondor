@@ -6,7 +6,12 @@
 
 #define ALLOW_OVERLAP
 
+#ifdef SORT_RAW
 // #define DRAW_RAW
+#endif
+
+// #define DRAW_CUT
+
 
 #define CUT_MUON_ID_SOFT
 
@@ -16,14 +21,15 @@
 
 #define CUT_UPS_MUON_MEDIUM
 
-#define _ON_LXPLUS_
+//#define ON_LXPLUS_
+#define ON_HEPTHU
 
-#ifdef _ON_LXPLUS_
+#ifdef ON_LXPLUS_
 #include "/afs/cern.ch/user/c/chiw/cernbox/JpsiJpsiUps/ParticleCand/src/ParticleCand.C"
 #endif
 
-#ifdef _ON_HEPTHU_
-#include "src/ParticleCand.C"
+#ifdef ON_HEPTHU_
+#include "/home/storage0/users/chiwang/storage2/CMS-Analysis/JpsiJpsiUps/condor_job/ntuples-toHTCondor/includes/ParticleCand.C"
 #endif
 
 #include "JOB_DIR/ReadTree.h"
@@ -453,6 +459,8 @@ void ReadTree::Loop()
     c1->cd(4); frame4->Draw();
     c1->SaveAs("mass_raw.png");
     #endif
+
+    #ifdef DRAW_CUT
     // Mass histograms passing the cut are drawn using Roofit.
     TCanvas* c2 = new TCanvas("c2", "c2", 1600, 1200);
     c2->Divide(2,2);
@@ -471,6 +479,7 @@ void ReadTree::Loop()
     c2->cd(4); frame8->Draw();
     // Save png file.
     c2->SaveAs("mass_cut.png");
+    #endif
 
     // Save cut candidates to a root file.
     TFile* f = new TFile("JOB_DIR/Candidates.root", "RECREATE");

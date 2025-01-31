@@ -1,11 +1,12 @@
-#define _ON_LXPLUS_
+// #define ON_LXPLUS_
+#define ON_HEPTHU_
 
-#ifdef _ON_LXPLUS_
+#ifdef ON_LXPLUS_
 #include "/afs/cern.ch/user/c/chiw/cernbox/JpsiJpsiUps/ParticleCand/src/ParticleCand.C"
 #endif
 
-#ifdef _ON_HEPTHU_
-#include "src/ParticleCand.C"
+#ifdef ON_HEPTHU_
+#include "/home/storage0/users/chiwang/storage2/CMS-Analysis/JpsiJpsiUps/condor_job/ntuples-toHTCondor/includes/ParticleCand.C"
 #endif
 
 #include "JOB_DIR/ReadTree.C"
