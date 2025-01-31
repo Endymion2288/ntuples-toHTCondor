@@ -6,7 +6,9 @@
 
 #define ALLOW_OVERLAP
 
-#ifdef SORT_RAW
+#define SAVE_RAW
+
+#ifdef SAVE_RAW
 // #define DRAW_RAW
 #endif
 
@@ -59,53 +61,53 @@ void ReadTree::Loop()
 
     // Use Roofit to draw the plot with proper error bars.
     // May try fitting later.
-    #ifdef DRAW_RAW
+    #ifdef SAVE_RAW
     // Define mass histograms for Jpsi, Ups and Pri. Using Roofit.
-    RooRealVar Jpsi1_mass_var("Jpsi1_mass", "Jpsi1_mass", 2.5, 3.5);
-    RooRealVar Jpsi2_mass_var("Jpsi2_mass", "Jpsi2_mass", 2.5, 3.5);
+    RooRealVar Jpsi_1_mass_var("Jpsi_1_mass", "Jpsi_1_mass", 2.5, 3.5);
+    RooRealVar Jpsi_2_mass_var("Jpsi_2_mass", "Jpsi_2_mass", 2.5, 3.5);
     RooRealVar Ups_mass_var("Ups_mass","Ups_mass", 8.0, 12.0);
     RooRealVar Pri_mass_var("Pri_mass","Pri_mass", 0.0, 100.);
     #endif
     // Define mass histograms for Jpsi, Ups and Pri passing the cut. Using Roofit.
-    RooRealVar Jpsi1_mass_cut_var("Jpsi1_mass_cut", "Jpsi1_mass_cut", 2.5, 3.5);
-    RooRealVar Jpsi2_mass_cut_var("Jpsi2_mass_cut", "Jpsi2_mass_cut", 2.5, 3.5);
+    RooRealVar Jpsi_1_mass_cut_var("Jpsi_1_mass_cut", "Jpsi_1_mass_cut", 2.5, 3.5);
+    RooRealVar Jpsi_2_mass_cut_var("Jpsi_2_mass_cut", "Jpsi_2_mass_cut", 2.5, 3.5);
     RooRealVar Ups_mass_cut_var("Ups_mass_cut","Ups_mass_cut", 8.0, 12.0);
     RooRealVar Pri_mass_cut_var("Pri_mass_cut","Pri_mass_cut", 0.0, 100.0);
 
-    #ifdef DRAW_RAW
+    #ifdef SAVE_RAW
     // Define dataset for Jpsi, Ups and Pri. Using Roofit.
-    RooDataSet Jpsi1_mass_data("Jpsi1_mass_data", "Jpsi1_mass_data", RooArgList(Jpsi1_mass_var));
-    RooDataSet Jpsi2_mass_data("Jpsi2_mass_data", "Jpsi2_mass_data", RooArgList(Jpsi2_mass_var));
+    RooDataSet Jpsi_1_mass_data("Jpsi_1_mass_data", "Jpsi_1_mass_data", RooArgList(Jpsi_1_mass_var));
+    RooDataSet Jpsi_2_mass_data("Jpsi_2_mass_data", "Jpsi_2_mass_data", RooArgList(Jpsi_2_mass_var));
     RooDataSet Ups_mass_data("Ups_mass_data", "Ups_mass_data", RooArgList(Ups_mass_var));
     RooDataSet Pri_mass_data("Pri_mass_data", "Pri_mass_data", RooArgList(Pri_mass_var));
     #endif
     // Define dataset for Jpsi, Ups and Pri passing the cut. Using Roofit.
-    RooDataSet Jpsi1_mass_cut_data("Jpsi1_mass_cut_data", "Jpsi1_mass_cut_data", RooArgList(Jpsi1_mass_cut_var));
-    RooDataSet Jpsi2_mass_cut_data("Jpsi2_mass_cut_data", "Jpsi2_mass_cut_data", RooArgList(Jpsi2_mass_cut_var));
+    RooDataSet Jpsi_1_mass_cut_data("Jpsi_1_mass_cut_data", "Jpsi_1_mass_cut_data", RooArgList(Jpsi_1_mass_cut_var));
+    RooDataSet Jpsi_2_mass_cut_data("Jpsi_2_mass_cut_data", "Jpsi_2_mass_cut_data", RooArgList(Jpsi_2_mass_cut_var));
     RooDataSet Ups_mass_cut_data("Ups_mass_cut_data", "Ups_mass_cut_data", RooArgList(Ups_mass_cut_var));
     RooDataSet Pri_mass_cut_data("Pri_mass_cut_data", "Pri_mass_cut_data", RooArgList(Pri_mass_cut_var));
 
     // Store the mass error for each candidate.
     // Define the RooDataSet for the mass error.
-    #ifdef DRAW_RAW
-    RooRealVar Jpsi1_massErr_var("Jpsi1_massErr", "Jpsi1_massErr", 0.0, 10.0);
-    RooRealVar Jpsi2_massErr_var("Jpsi2_massErr", "Jpsi2_massErr", 0.0, 10.0);
+    #ifdef SAVE_RAW
+    RooRealVar Jpsi_1_massErr_var("Jpsi_1_massErr", "Jpsi_1_massErr", 0.0, 10.0);
+    RooRealVar Jpsi_2_massErr_var("Jpsi_2_massErr", "Jpsi_2_massErr", 0.0, 10.0);
     RooRealVar Ups_massErr_var("Ups_massErr", "Ups_massErr", 0.0, 10.0);
     RooRealVar Pri_massErr_var("Pri_massErr", "Pri_massErr", 0.0, 10.0);
     #endif
-    RooRealVar Jpsi1_massErr_cut_var("Jpsi1_massErr", "Jpsi1_massErr", 0.0, 10.0);
-    RooRealVar Jpsi2_massErr_cut_var("Jpsi2_massErr", "Jpsi2_massErr", 0.0, 10.0);
+    RooRealVar Jpsi_1_massErr_cut_var("Jpsi_1_massErr", "Jpsi_1_massErr", 0.0, 10.0);
+    RooRealVar Jpsi_2_massErr_cut_var("Jpsi_2_massErr", "Jpsi_2_massErr", 0.0, 10.0);
     RooRealVar Ups_massErr_cut_var("Ups_massErr", "Ups_massErr", 0.0, 10.0);
     RooRealVar Pri_massErr_cut_var("Pri_massErr", "Pri_massErr", 0.0, 10.0);
     // Define the RooDataSet for the mass error.
-    #ifdef DRAW_RAW
-    RooDataSet Jpsi1_massErr_data("Jpsi1_massErr_data", "Jpsi1_massErr_data", RooArgList(Jpsi1_massErr_var));
-    RooDataSet Jpsi2_massErr_data("Jpsi2_massErr_data", "Jpsi2_massErr_data", RooArgList(Jpsi2_massErr_var));
+    #ifdef SAVE_RAW
+    RooDataSet Jpsi_1_massErr_data("Jpsi_1_massErr_data", "Jpsi_1_massErr_data", RooArgList(Jpsi_1_massErr_var));
+    RooDataSet Jpsi_2_massErr_data("Jpsi_2_massErr_data", "Jpsi_2_massErr_data", RooArgList(Jpsi_2_massErr_var));
     RooDataSet Ups_massErr_data("Ups_massErr_data", "Ups_massErr_data", RooArgList(Ups_massErr_var));
     RooDataSet Pri_massErr_data("Pri_massErr_data", "Pri_massErr_data", RooArgList(Pri_massErr_var));
     #endif
-    RooDataSet Jpsi1_massErr_cut_data("Jpsi1_massErr_cut_data", "Jpsi1_massErr_cut_data", RooArgList(Jpsi1_massErr_cut_var));
-    RooDataSet Jpsi2_massErr_cut_data("Jpsi2_massErr_cut_data", "Jpsi2_massErr_cut_data", RooArgList(Jpsi2_massErr_cut_var));
+    RooDataSet Jpsi_1_massErr_cut_data("Jpsi_1_massErr_cut_data", "Jpsi_1_massErr_cut_data", RooArgList(Jpsi_1_massErr_cut_var));
+    RooDataSet Jpsi_2_massErr_cut_data("Jpsi_2_massErr_cut_data", "Jpsi_2_massErr_cut_data", RooArgList(Jpsi_2_massErr_cut_var));
     RooDataSet Ups_massErr_cut_data("Ups_massErr_cut_data", "Ups_massErr_cut_data", RooArgList(Ups_massErr_cut_var));
     RooDataSet Pri_massErr_cut_data("Pri_massErr_cut_data", "Pri_massErr_cut_data", RooArgList(Pri_massErr_cut_var));
 
@@ -154,7 +156,7 @@ void ReadTree::Loop()
             mu_phi.push_back(phi);
         }
 
-        #ifdef DRAW_RAW
+        #ifdef SAVE_RAW
 
         std::vector<std::shared_ptr<ParticleCand> > CandList_raw;
 
@@ -337,13 +339,13 @@ void ReadTree::Loop()
                 break;
             }
             // Set the mass.
-            Jpsi1_mass_cut_var.setVal(Jpsi_1_mass->at(CandList_cut[iCand]->GetId()));
-            Jpsi2_mass_cut_var.setVal(Jpsi_2_mass->at(CandList_cut[iCand]->GetId()));
+            Jpsi_1_mass_cut_var.setVal(Jpsi_1_mass->at(CandList_cut[iCand]->GetId()));
+            Jpsi_2_mass_cut_var.setVal(Jpsi_2_mass->at(CandList_cut[iCand]->GetId()));
             Ups_mass_cut_var.setVal(Ups_mass->at(CandList_cut[iCand]->GetId()));
             Pri_mass_cut_var.setVal(Pri_mass->at(CandList_cut[iCand]->GetId()));
             // Set the mass error.
-            Jpsi1_mass_cut_var.setError(Jpsi_1_massErr->at(CandList_cut[iCand]->GetId()));
-            Jpsi2_mass_cut_var.setError(Jpsi_2_massErr->at(CandList_cut[iCand]->GetId()));
+            Jpsi_1_mass_cut_var.setError(Jpsi_1_massErr->at(CandList_cut[iCand]->GetId()));
+            Jpsi_2_mass_cut_var.setError(Jpsi_2_massErr->at(CandList_cut[iCand]->GetId()));
             Ups_mass_cut_var.setError(Ups_massErr->at(CandList_cut[iCand]->GetId()));
             Pri_mass_cut_var.setError(Pri_massErr->at(CandList_cut[iCand]->GetId()));
             Jpsi_1_massErr_var.setVal(Jpsi_1_massErr->at(CandList_cut[iCand]->GetId()));
@@ -351,44 +353,44 @@ void ReadTree::Loop()
             Ups_massErr_cut_var.setVal(Ups_massErr->at(CandList_cut[iCand]->GetId()));
             Pri_massErr_var.setVal(Pri_massErr->at(CandList_cut[iCand]->GetId()));
             // Add the data to the dataset.
-            Jpsi1_mass_cut_data.add(RooArgSet(Jpsi1_mass_cut_var));
-            Jpsi2_mass_cut_data.add(RooArgSet(Jpsi2_mass_cut_var));
+            Jpsi_1_mass_cut_data.add(RooArgSet(Jpsi_1_mass_cut_var));
+            Jpsi_2_mass_cut_data.add(RooArgSet(Jpsi_2_mass_cut_var));
             Ups_mass_cut_data.add(RooArgSet(Ups_mass_cut_var));
             Pri_mass_cut_data.add(RooArgSet(Pri_mass_cut_var));
-            Jpsi1_massErr_cut_data.add(RooArgSet(Jpsi_1_massErr_var));
-            Jpsi2_massErr_cut_data.add(RooArgSet(Jpsi_2_massErr_var));
+            Jpsi_1_massErr_cut_data.add(RooArgSet(Jpsi_1_massErr_var));
+            Jpsi_2_massErr_cut_data.add(RooArgSet(Jpsi_2_massErr_var));
             Ups_massErr_cut_data.add(RooArgSet(Ups_massErr_cut_var));
             Pri_massErr_cut_data.add(RooArgSet(Pri_massErr_var));
 
         }
 
-        #ifdef DRAW_RAW
+        #ifdef SAVE_RAW
         // Top-10 candidates are added to the RooDataSet directly.
         for(size_t iCand=0; iCand < CandList_raw.size(); iCand++){
             if(iCand >= nCandsAllowed){
                 break;
             }
             // Set the mass.
-            Jpsi1_mass_var.setVal(Jpsi_1_mass->at(CandList_raw[iCand]->GetId()));
-            Jpsi2_mass_var.setVal(Jpsi_2_mass->at(CandList_raw[iCand]->GetId()));
+            Jpsi_1_mass_var.setVal(Jpsi_1_mass->at(CandList_raw[iCand]->GetId()));
+            Jpsi_2_mass_var.setVal(Jpsi_2_mass->at(CandList_raw[iCand]->GetId()));
             Ups_mass_var.setVal(Ups_mass->at(CandList_raw[iCand]->GetId()));
             Pri_mass_var.setVal(Pri_mass->at(CandList_raw[iCand]->GetId()));
             // Set the mass error.
-            Jpsi1_mass_var.setError(Jpsi_1_massErr->at(CandList_raw[iCand]->GetId()));
-            Jpsi2_mass_var.setError(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi_1_mass_var.setError(Jpsi_1_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi_2_mass_var.setError(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
             Ups_mass_var.setError(Ups_massErr->at(CandList_raw[iCand]->GetId()));
             Pri_mass_var.setError(Pri_massErr->at(CandList_raw[iCand]->GetId()));
-            Jpsi1_massErr_var.setVal(Jpsi_1_massErr->at(CandList_raw[iCand]->GetId()));
-            Jpsi2_massErr_var.setVal(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi_1_massErr_var.setVal(Jpsi_1_massErr->at(CandList_raw[iCand]->GetId()));
+            Jpsi_2_massErr_var.setVal(Jpsi_2_massErr->at(CandList_raw[iCand]->GetId()));
             Ups_massErr_var.setVal(Ups_massErr->at(CandList_raw[iCand]->GetId()));
             Pri_massErr_var.setVal(Pri_massErr->at(CandList_raw[iCand]->GetId()));
             // Add the data to the dataset.
-            Jpsi1_mass_data.add(RooArgSet(Jpsi1_mass_var));
-            Jpsi2_mass_data.add(RooArgSet(Jpsi2_mass_var));
+            Jpsi_1_mass_data.add(RooArgSet(Jpsi_1_mass_var));
+            Jpsi_2_mass_data.add(RooArgSet(Jpsi_2_mass_var));
             Ups_mass_data.add(RooArgSet(Ups_mass_var));
             Pri_mass_data.add(RooArgSet(Pri_mass_var));
-            Jpsi1_massErr_data.add(RooArgSet(Jpsi1_massErr_var));
-            Jpsi2_massErr_data.add(RooArgSet(Jpsi2_massErr_var));
+            Jpsi_1_massErr_data.add(RooArgSet(Jpsi_1_massErr_var));
+            Jpsi_2_massErr_data.add(RooArgSet(Jpsi_2_massErr_var));
             Ups_massErr_data.add(RooArgSet(Ups_massErr_var));
             Pri_massErr_data.add(RooArgSet(Pri_massErr_var));
         }
@@ -397,7 +399,7 @@ void ReadTree::Loop()
 
         #else
         // Greedy algorithm to find a non-overlapping combination.
-        #ifdef DRAW_RAW
+        #ifdef SAVE_RAW
         std::vector<std::shared_ptr<ParticleCand> > SelectedCands_raw;
         for(auto& cand : CandList_raw){
             if(SelectedCands_raw.empty()){
@@ -438,30 +440,30 @@ void ReadTree::Loop()
             }
         }
 
-        #ifdef DRAW_RAW
+        #ifdef SAVE_RAW
         // Draw the selected candidates. Fill the dataset.
         for(auto& cand : SelectedCands_raw){
             // Set the mass.
-            Jpsi1_mass_var.setVal(Jpsi_1_mass->at(cand->GetId()));
-            Jpsi2_mass_var.setVal(Jpsi_2_mass->at(cand->GetId()));
+            Jpsi_1_mass_var.setVal(Jpsi_1_mass->at(cand->GetId()));
+            Jpsi_2_mass_var.setVal(Jpsi_2_mass->at(cand->GetId()));
             Ups_mass_var.setVal(Ups_mass->at(cand->GetId()));
             Pri_mass_var.setVal(Pri_mass->at(cand->GetId()));
             // Set the mass error.
-            Jpsi1_mass_var.setError(Jpsi_1_massErr->at(cand->GetId()));
-            Jpsi2_mass_var.setError(Jpsi_2_massErr->at(cand->GetId()));
+            Jpsi_1_mass_var.setError(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi_2_mass_var.setError(Jpsi_2_massErr->at(cand->GetId()));
             Ups_mass_var.setError(Ups_massErr->at(cand->GetId()));
             Pri_mass_var.setError(Pri_massErr->at(cand->GetId()));
-            Jpsi1_massErr_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
-            Jpsi2_massErr_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
+            Jpsi_1_massErr_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi_2_massErr_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
             Ups_massErr_var.setVal(Ups_massErr->at(cand->GetId()));
             Pri_massErr_var.setVal(Pri_massErr->at(cand->GetId()));
             // Add the data to the dataset.
-            Jpsi1_mass_data.add(RooArgSet(Jpsi1_mass_var));
-            Jpsi2_mass_data.add(RooArgSet(Jpsi2_mass_var));
+            Jpsi_1_mass_data.add(RooArgSet(Jpsi_1_mass_var));
+            Jpsi_2_mass_data.add(RooArgSet(Jpsi_2_mass_var));
             Ups_mass_data.add(RooArgSet(Ups_mass_var));
             Pri_mass_data.add(RooArgSet(Pri_mass_var));
-            Jpsi1_massErr_data.add(RooArgSet(Jpsi1_massErr_var));
-            Jpsi2_massErr_data.add(RooArgSet(Jpsi2_massErr_var));
+            Jpsi_1_massErr_data.add(RooArgSet(Jpsi_1_massErr_var));
+            Jpsi_2_massErr_data.add(RooArgSet(Jpsi_2_massErr_var));
             Ups_massErr_data.add(RooArgSet(Ups_massErr_var));
             Pri_massErr_data.add(RooArgSet(Pri_massErr_var));
         }
@@ -470,26 +472,26 @@ void ReadTree::Loop()
         // Draw the selected candidates passing the cut.
         for(auto& cand : SelectedCands_cut){
             // Set the mass.
-            Jpsi1_mass_cut_var.setVal(Jpsi_1_mass->at(cand->GetId()));
-            Jpsi2_mass_cut_var.setVal(Jpsi_2_mass->at(cand->GetId()));
+            Jpsi_1_mass_cut_var.setVal(Jpsi_1_mass->at(cand->GetId()));
+            Jpsi_2_mass_cut_var.setVal(Jpsi_2_mass->at(cand->GetId()));
             Ups_mass_cut_var.setVal(Ups_mass->at(cand->GetId()));
             Pri_mass_cut_var.setVal(Pri_mass->at(cand->GetId()));
             // Set the mass error.
-            Jpsi1_mass_cut_var.setError(Jpsi_1_massErr->at(cand->GetId()));
-            Jpsi2_mass_cut_var.setError(Jpsi_2_massErr->at(cand->GetId()));
+            Jpsi_1_mass_cut_var.setError(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi_2_mass_cut_var.setError(Jpsi_2_massErr->at(cand->GetId()));
             Ups_mass_cut_var.setError(Ups_massErr->at(cand->GetId()));
             Pri_mass_cut_var.setError(Pri_massErr->at(cand->GetId()));
-            Jpsi1_massErr_cut_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
-            Jpsi2_massErr_cut_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
+            Jpsi_1_massErr_cut_var.setVal(Jpsi_1_massErr->at(cand->GetId()));
+            Jpsi_2_massErr_cut_var.setVal(Jpsi_2_massErr->at(cand->GetId()));
             Ups_massErr_cut_var.setVal(Ups_massErr->at(cand->GetId()));
             Pri_massErr_cut_var.setVal(Pri_massErr->at(cand->GetId()));
             // Add the data to the dataset.
-            Jpsi1_mass_cut_data.add(RooArgSet(Jpsi1_mass_cut_var));
-            Jpsi2_mass_cut_data.add(RooArgSet(Jpsi2_mass_cut_var));
+            Jpsi_1_mass_cut_data.add(RooArgSet(Jpsi_1_mass_cut_var));
+            Jpsi_2_mass_cut_data.add(RooArgSet(Jpsi_2_mass_cut_var));
             Ups_mass_cut_data.add(RooArgSet(Ups_mass_cut_var));
             Pri_mass_cut_data.add(RooArgSet(Pri_mass_cut_var));
-            Jpsi1_massErr_cut_data.add(RooArgSet(Jpsi1_massErr_cut_var));
-            Jpsi2_massErr_cut_data.add(RooArgSet(Jpsi2_massErr_cut_var));
+            Jpsi_1_massErr_cut_data.add(RooArgSet(Jpsi_1_massErr_cut_var));
+            Jpsi_2_massErr_cut_data.add(RooArgSet(Jpsi_2_massErr_cut_var));
             Ups_massErr_cut_data.add(RooArgSet(Ups_massErr_cut_var));
             Pri_massErr_cut_data.add(RooArgSet(Pri_massErr_cut_var));
         }
@@ -501,12 +503,12 @@ void ReadTree::Loop()
     // Mass histograms are drawn using Roofit.
     TCanvas* c1 = new TCanvas("c1", "c1", 1600, 1200);
     c1->Divide(2,2);
-    RooPlot* frame1 = Jpsi1_mass_var.frame();
-    RooPlot* frame2 = Jpsi2_mass_var.frame();
+    RooPlot* frame1 = Jpsi_1_mass_var.frame();
+    RooPlot* frame2 = Jpsi_2_mass_var.frame();
     RooPlot* frame3 = Ups_mass_var.frame();
     RooPlot* frame4 = Pri_mass_var.frame();
-    Jpsi1_mass_data.plotOn(frame1);
-    Jpsi2_mass_data.plotOn(frame2);
+    Jpsi_1_mass_data.plotOn(frame1);
+    Jpsi_2_mass_data.plotOn(frame2);
     Ups_mass_data.plotOn(frame3);
     Pri_mass_data.plotOn(frame4);
     // Draw the histograms.
@@ -521,12 +523,12 @@ void ReadTree::Loop()
     // Mass histograms passing the cut are drawn using Roofit.
     TCanvas* c2 = new TCanvas("c2", "c2", 1600, 1200);
     c2->Divide(2,2);
-    RooPlot* frame5 = Jpsi1_mass_cut_var.frame();
-    RooPlot* frame6 = Jpsi2_mass_cut_var.frame();
+    RooPlot* frame5 = Jpsi_1_mass_cut_var.frame();
+    RooPlot* frame6 = Jpsi_2_mass_cut_var.frame();
     RooPlot* frame7 = Ups_mass_cut_var.frame();
     RooPlot* frame8 = Pri_mass_cut_var.frame();
-    Jpsi1_mass_cut_data.plotOn(frame5);
-    Jpsi2_mass_cut_data.plotOn(frame6);
+    Jpsi_1_mass_cut_data.plotOn(frame5);
+    Jpsi_2_mass_cut_data.plotOn(frame6);
     Ups_mass_cut_data.plotOn(frame7);
     Pri_mass_cut_data.plotOn(frame8);
     // Draw the histograms.
@@ -540,22 +542,22 @@ void ReadTree::Loop()
 
     // Save cut candidates to a root file.
     TFile* f = new TFile("JOB_DIR/Candidates.root", "RECREATE");
-    #ifdef DRAW_RAW
-    Jpsi1_mass_data.Write();
-    Jpsi2_mass_data.Write();
+    #ifdef SAVE_RAW
+    Jpsi_1_mass_data.Write();
+    Jpsi_2_mass_data.Write();
     Ups_mass_data.Write();
     Pri_mass_data.Write();
-    Jpsi1_massErr_data.Write();
-    Jpsi2_massErr_data.Write();
+    Jpsi_1_massErr_data.Write();
+    Jpsi_2_massErr_data.Write();
     Ups_massErr_data.Write();
     Pri_massErr_data.Write();
     #endif
-    Jpsi1_mass_cut_data.Write();
-    Jpsi2_mass_cut_data.Write();
+    Jpsi_1_mass_cut_data.Write();
+    Jpsi_2_mass_cut_data.Write();
     Ups_mass_cut_data.Write();
     Pri_mass_cut_data.Write();
-    Jpsi1_massErr_cut_data.Write();
-    Jpsi2_massErr_cut_data.Write();
+    Jpsi_1_massErr_cut_data.Write();
+    Jpsi_2_massErr_cut_data.Write();
     Ups_massErr_cut_data.Write();
     Pri_massErr_cut_data.Write();
     f->Close();
